@@ -3,7 +3,7 @@ DATASET_PATH = "dataset_account.xlsx"
 DB_CONFIG = {
     "host": "localhost",
     "user": "postgres",
-    "database" : "postgres",
+    "database": "postgres",
     "password": "postgres",
-    "port": 5432
+    "port": 5432,
 }

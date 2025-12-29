@@ -1,8 +1,11 @@
 import psycopg2
+
 from config import DB_CONFIG
+
 
 def get_connection():
     return psycopg2.connect(**DB_CONFIG)
+
 
 def create_table(cursor):
     cursor.execute("""
@@ -23,6 +26,7 @@ def create_table(cursor):
     );
     """)
 
+
 def insert_data(cursor, df):
     insert_sql = """
     INSERT INTO account_data (
@@ -35,12 +39,20 @@ def insert_data(cursor, df):
 
     data = df[
         [
-            "Code", "noCompte", "code_banque", "code_agence", "Branch",
-            "code_produit", "Product", "num_compte", "rib",
-            "AvailableBalance", "OpeningDate", "Report_date_to",
-            "gestionnaire de compte"
+            "Code",
+            "noCompte",
+            "code_banque",
+            "code_agence",
+            "Branch",
+            "code_produit",
+            "Product",
+            "num_compte",
+            "rib",
+            "AvailableBalance",
+            "OpeningDate",
+            "Report_date_to",
+            "gestionnaire de compte",
         ]
     ].values.tolist()
 
     cursor.executemany(insert_sql, data)
-    print(len(data[0]))
