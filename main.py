@@ -1,6 +1,6 @@
 from data_aggregator import compute_aggregates
 from data_transformer import transform_data
-from database import create_table, get_connection, insert_data
+from database import create_table_all_acount, get_connection, insert_all_data_acount
 from read_dataset import load_datasets
 
 
@@ -13,7 +13,9 @@ def main():
         df_final = transform_data(df_source, df_product, df_branch)
 
         # 3️⃣ Aggregations
-        agence_agg, agence_produit_agg = compute_aggregates(df_final)
+        agence_agg, sodle_agence_agg, agence_produit_agg, top_gestionaire = (
+            compute_aggregates(df_final)
+        )
 
         # 4️⃣ DB connection
         conn = get_connection()
@@ -24,10 +26,10 @@ def main():
         print("✅ Database connection OK")
 
         # 5️⃣ Create table
-        create_table(cursor)
+        create_table_all_acount(cursor)
 
         # 6️⃣ Insert data
-        insert_data(cursor, df_final)
+        insert_all_data_acount(cursor, df_final)
 
         # 7️⃣ Commit
         conn.commit()

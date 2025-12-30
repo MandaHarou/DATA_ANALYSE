@@ -7,7 +7,7 @@ def get_connection():
     return psycopg2.connect(**DB_CONFIG)
 
 
-def create_table(cursor):
+def create_table_all_acount(cursor):
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS account_data (
         code TEXT,
@@ -27,7 +27,7 @@ def create_table(cursor):
     """)
 
 
-def insert_data(cursor, df):
+def insert_all_data_acount(cursor, df):
     insert_sql = """
     INSERT INTO account_data (
         code, nocompte, code_banque, code_agence, branch,
@@ -37,7 +37,7 @@ def insert_data(cursor, df):
     ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
 
-    data = df[
+    all_data = df[
         [
             "Code",
             "noCompte",
@@ -55,4 +55,4 @@ def insert_data(cursor, df):
         ]
     ].values.tolist()
 
-    cursor.executemany(insert_sql, data)
+    cursor.executemany(insert_sql, all_data)
